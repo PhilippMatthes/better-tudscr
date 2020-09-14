@@ -1,0 +1,62 @@
+name: CI
+
+on: [push]
+
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    container:
+      image: aergus/latex
+      volumes:
+        - /workspace:/github/workspace
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+
+      - name: Build the thesis
+        run: make
+
+      - name: Upload thesis.pdf to build artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: thesis.pdf
+          path: thesis.pdf
+
+      - name: Upload thesis.log to build artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: thesis.log
+          path: thesis.log
+
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.sha }}
+          release_name: Draft ${{ github.sha }}
+          draft: true
+          prerelease: true
+
+      - name: Upload thesis.pdf to release assets
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: thesis.pdf
+          asset_name: thesis.pdf
+          asset_content_type: application/pdf
+
+      - name: Upload thesis.log to release assets
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: thesis.log
+          asset_name: thesis.log
+          asset_content_type: text/plain

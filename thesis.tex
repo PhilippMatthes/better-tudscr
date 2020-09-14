@@ -1,0 +1,183 @@
+% the following command is only required if the thesis is written in german
+\RequirePackage[ngerman=ngerman-x-latest]{hyphsubst}
+
+\documentclass[
+  english, % change to ngerman for german theses
+  symmetric, % use two-side for booklike layouts
+  cdfont=off % modify this to use the TUD font (Open Sans)
+]{tudscrreprt}
+% use a custom serif font
+\usepackage[bitstream-charter]{mathdesign}
+% make chapter, section, ... use serif font
+\addtokomafont{disposition}{\rmfamily}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[
+  english % change to ngerman for german theses
+]{babel}
+\usepackage{isodate}
+\usepackage{pdfpages}
+\usepackage{listings}
+\usepackage[toc, page]{appendix}
+\usepackage{hyphenat}
+
+\usepackage[
+  style=alphabetic,
+  backend=biber,
+  url=false,
+  doi=false,
+  isbn=false,
+  hyperref,
+]{biblatex}
+% configure the location of the biblatex file
+\addbibresource{bibliography.bib}
+\AtEveryBibitem{%
+  \clearfield{note}%
+}
+
+% make all links clickable but hide ugly boxes
+\usepackage[hidelinks]{hyperref}
+% automatically insert Fig. X in the text with \cref{..}
+\usepackage[capitalise,nameinlink,noabbrev]{cleveref}
+
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+
+\usepackage{svg}
+
+% if you need mathy stuff
+\newtheorem{lem}{Lemma}
+\crefname{lem}{Lemma}{Lemmas}
+\newtheorem{thm}{Theorem}
+\crefname{thm}{Theorem}{Theorems}
+\newtheorem{defs}{Definition}
+\crefname{defs}{Def.}{Defs.}
+
+\usepackage{blindtext}
+
+%\usepackage{tudscrsupervisor} % if you want to copy the sources of the task description into the thesis
+
+\usepackage{csquotes}
+
+\usepackage{caption}
+\captionsetup{font=normalfont,labelfont=normalfont,labelsep=space}
+\usepackage{floatrow}
+\floatsetup{font=normalfont}
+\floatsetup[table]{style=plaintop}
+\captionsetup{singlelinecheck=off,format=hang,justification=raggedright}
+\DeclareCaptionSubType[alph]{figure}
+\DeclareCaptionSubType[alph]{table}
+\captionsetup[subfloat]{labelformat=brace,list=off}
+
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{tabulary}
+\usepackage{tabu}
+\usepackage{longtable}
+\usepackage{multirow}
+
+\usepackage{quoting}
+
+\usepackage[babel]{microtype}
+
+\usepackage{xfrac}
+
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep}
+
+\usepackage{ellipsis}
+\let\ellipsispunctuation\relax
+
+\input{lst.tex} % code styles (listings)
+
+% use this custom theorem for research questions
+\newtheorem{researchquestion}{Research Question}
+\crefname{researchquestion}{Research Question}{Research Questions}
+
+% use this custom environment for equations
+\newenvironment{conditions}
+  {\par\vspace{\abovedisplayskip}\noindent\begin{tabular}{>{$}l<{$} @{${}={}$} l}}
+  {\end{tabular}\par\vspace{\belowdisplayskip}}
+
+\usepackage{float}
+
+% configure the name of your appendix
+\renewcommand\appendixtocname{Appendix}
+\renewcommand\appendixpagename{Appendix}
+
+% use \tocless before a chapter/section/... in the
+% appendix to hide it from the toc
+\newcommand{\nocontentsline}[3]{}
+\newcommand{\tocless}[2]{
+  \bgroup\let\addcontentsline=\nocontentsline#1{#2}\egroup
+}
+
+\begin{document}
+
+  % use uppercase roman letters for all pages until the introduction
+  % this way, it is easier to identify how many pages the thesis has
+  \pagenumbering{Roman}
+
+  \faculty{Fakultät Informatik}
+  \department{}
+  \institute{Institut für Software- und Multimediatechnik}
+  \chair{Lehrstuhl für Softwaretechnologie}
+  \title{%
+      Title of your Thesis.
+  }
+
+  \thesis{evidence} % the type of thesis you want to write
+
+  \author{Max Mustermann}
+  \matriculationnumber{1234567}
+  \matriculationyear{1970}
+  \dateofbirth{1.1.1970}
+  \placeofbirth{Dresden}
+
+  \course{Diplom Informatik (PO 2010)}
+
+  \supervisor{%
+    Dipl. Inf. Max Mustermann
+  }
+  \professor{Prof. Dr. rer. nat. habil. Max Mustermann}
+  \date{1.1.1970} % the date of submission
+  \maketitle
+
+  \newpage
+
+  % include the task definition if you want
+  % \includepdf[pages=-]{task/task.pdf}
+  % \newpage
+
+  % for the order of the following sections please refer to
+  % the recommendations for thesis structuring
+  \confirmation
+
+  \tableofcontents
+
+  \listoffigures
+  \addcontentsline{toc}{chapter}{\listfigurename}
+
+  \listoftables
+  \addcontentsline{toc}{chapter}{\listtablename}
+
+  % this is where your thesis lives
+
+  \input{sections/introduction.tex}
+
+  \newpage
+
+  % use lowercased roman page numbers for the appendix and the bibliography
+  \pagenumbering{roman}
+
+  \printbibliography[heading=bibintoc]\label{sec:bibliography}%
+
+  \begin{appendices}
+    \input{sections/appendix.tex}
+  \end{appendices}
+
+\end{document}
