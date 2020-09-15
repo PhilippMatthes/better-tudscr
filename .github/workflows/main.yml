@@ -28,7 +28,7 @@ jobs:
       - name: Make necessary environment variables available
         id: environment
         run: |
-          echo "::set-output name=date::$(date +'%Y-%m-%dT%H:%M:%S')"
+          echo "::set-output name=date::$(date +'%Y-%m-%dT%H-%M-%SZ')"
           echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
 
       - name: Upload thesis.pdf to build artifacts
@@ -51,28 +51,7 @@ jobs:
         with:
           tag_name: ${{ steps.environment.outputs.sha_short }}
           release_name: Release ${{ steps.environment.outputs.sha_short }}
-          body: |
-            ## Changes in this Release
-
-            History from `${{ steps.attrs.outputs.tail }}` to `${{ steps.attrs.outputs.head }}`
-
-            ### Commits
-
-            ${{ steps.attrs.outputs.commits }}
-
-            ### Pull Requests
-
-            ${{ steps.attrs.outputs.prs }}
-
-            ### Contributors
-
-            ${{ steps.attrs.outputs.contributors }}
-
-            ### Files
-
-            ```
-            ${{ steps.attrs.outputs.files }}
-            ```
+          body: This release was created on ${{ steps.environment.outputs.date }}.
           draft: false
           prerelease: false
 
