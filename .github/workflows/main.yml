@@ -49,8 +49,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.environment.outputs.sha_short }}
-          release_name: Release ${{ steps.environment.outputs.sha_short }}
+          tag_name: release-${{ steps.environment.outputs.date }}
+          release_name: Release from ${{ steps.environment.outputs.date }}
           body: This release was created on ${{ steps.environment.outputs.date }}.
           draft: false
           prerelease: false
