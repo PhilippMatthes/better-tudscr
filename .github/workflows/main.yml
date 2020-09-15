@@ -1,6 +1,13 @@
 name: CI
 
-on: [push]
+on:
+  push:
+    # Sequence of patterns matched against refs/heads
+    branches:
+      - master
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - v*
 
 jobs:
 
@@ -18,16 +25,22 @@ jobs:
       - name: Build the thesis
         run: make
 
+      - name: Make necessary environment variables available
+        id: environment
+        run: |
+          echo "::set-output name=date::$(date +'%Y-%m-%dT%H:%M:%S')"
+          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+
       - name: Upload thesis.pdf to build artifacts
         uses: actions/upload-artifact@v1
         with:
-          name: thesis.pdf
+          name: thesis-${{ steps.environment.outputs.date }}.pdf
           path: thesis.pdf
 
       - name: Upload thesis.log to build artifacts
         uses: actions/upload-artifact@v1
         with:
-          name: thesis.log
+          name: thesis-${{ steps.environment.outputs.date }}.log
           path: thesis.log
 
       - name: Create release
@@ -36,10 +49,32 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.sha }}
-          release_name: Draft ${{ github.sha }}
-          draft: true
-          prerelease: true
+          tag_name: ${{ steps.environment.outputs.sha_short }}
+          release_name: Release ${{ steps.environment.outputs.sha_short }}
+          body: |
+            ## Changes in this Release
+
+            History from `${{ steps.attrs.outputs.tail }}` to `${{ steps.attrs.outputs.head }}`
+
+            ### Commits
+
+            ${{ steps.attrs.outputs.commits }}
+
+            ### Pull Requests
+
+            ${{ steps.attrs.outputs.prs }}
+
+            ### Contributors
+
+            ${{ steps.attrs.outputs.contributors }}
+
+            ### Files
+
+            ```
+            ${{ steps.attrs.outputs.files }}
+            ```
+          draft: false
+          prerelease: false
 
       - name: Upload thesis.pdf to release assets
         uses: actions/upload-release-asset@v1
@@ -48,7 +83,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: thesis.pdf
-          asset_name: thesis.pdf
+          asset_name: thesis-${{ steps.environment.outputs.date }}.pdf
           asset_content_type: application/pdf
 
       - name: Upload thesis.log to release assets
@@ -58,5 +93,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: thesis.log
-          asset_name: thesis.log
+          asset_name: thesis-${{ steps.environment.outputs.date }}.log
           asset_content_type: text/plain
