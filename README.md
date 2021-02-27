@@ -8,11 +8,11 @@ A template for the tudscr (TUD-Script) LaTeX package. Contains an initial templa
 
 Optional steps:
 
-a. If your build fails, check *thesis.log* for further information.
-b. If you want a continuous build, use `make serve`. It will continuous build the *thesis.pdf* on every change.
-c. If you want a word count, use `make count`.
-d. If you want to remove all auxiliary build files, use `make clean`.
-e: If you want to change the image name of the latex image produced by `make container`, adjust the _DOCKER_IMAGE_ variable inside `Makefile`
+* If your build fails, check *thesis.log* for further information.
+* If you want a continuous build, use `make serve`. It will continuous build the *thesis.pdf* on every change.
+* If you want a word count, use `make count`.
+* If you want to remove all auxiliary build files, use `make clean`.
+* If you want to change the image name of the latex image produced by `make container`, adjust the _DOCKER_IMAGE_ variable inside `Makefile`
 
 All Docker containers are automatically stopped and removed after usage, so you don’t have to do anything in that regard!
 
