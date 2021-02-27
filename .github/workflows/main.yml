@@ -42,7 +42,7 @@ jobs:
         with:
           push: false
           builder: ${{ steps.buildx.outputs.name }}
-          tags: release-${{ steps.environment.outputs.date }}
+          tags: release-${{ steps.environment.outputs.sha_short }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
           context: .
