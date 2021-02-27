@@ -251,5 +251,8 @@ TSWLatexianTemp*
 # standalone packages
 *.sta
 
+# bash
+.bash_history
+
 # this thesis
 thesis.pdf
