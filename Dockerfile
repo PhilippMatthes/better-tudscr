@@ -41,3 +41,4 @@ ARG USER_HOME
 
 # Copy the pdf into the image.
 COPY --from=build $USER_HOME/thesis.pdf /
+COPY --from=build $USER_HOME/thesis.log /
