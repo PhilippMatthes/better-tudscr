@@ -1,9 +1,11 @@
 {
-    "languageTool.language": "de-DE",
-    "languageToolLinter.languageTool.language": "de-DE",
-    "languageToolLinter.languageTool.motherTongue": "de-DE",
-    "languageToolLinter.serviceType": "public",
-    "languageToolLinter.lintOnOpen": true,
-    "languageToolLinter.smartFormat.onSave": true,
-    "languageToolLinter.languageTool.ignoredWordsInWorkspace": [],
+    "editor.wordWrap": "on",
+    "ltex.enabled": true,
+    "ltex.language": "de-DE",
+    "ltex.additionalRules.motherTongue": "de-DE",
+    "ltex.additionalRules.enablePickyRules": true,
+    "ltex.checkFrequency": "edit",
+    "latex-workshop.docker.enabled": true,
+    "latex-workshop.docker.image.latex": "aergus/latex",
+    "latex-workshop.latex.autoBuild.run": "never"
 }
