@@ -12,13 +12,13 @@ DOCKER_IMAGE:=mustermann/latex
 thesis:
 	@docker build --output ./ .
 
-serve:
-	@docker run --rm -v $(DIR):$(USER_HOME) $(DOCKER_IMAGE) bash -c "latexmk -quiet -pdf -pvc -view=none thesis"
+shell: container
+	@docker run -it --rm -v $(DIR):$(USER_HOME) $(DOCKER_IMAGE) bash
 
-clean:
+clean: container
 	@docker run --rm -v $(DIR):$(USER_HOME) $(DOCKER_IMAGE) bash -c "latexmk -C"
 
-count:
+count: container
 	@docker run --rm -v $(DIR):$(USER_HOME) $(DOCKER_IMAGE) bash -c "texcount -inc thesis.tex"
 
 container:
