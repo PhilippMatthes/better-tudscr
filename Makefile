@@ -4,7 +4,7 @@ DIR:=$(shell sh -c "pwd")
 USER_ID:=$(shell sh -c "id -u")
 USER_NAME:=$(shell sh -c "id -u -n")
 USER_HOME:=/home/latex
-BASE_IMAGE:=aergus/latex
+BASE_IMAGE:=kaestner/latex
 DOCKER_IMAGE:=mustermann/latex
 
 .PHONY: all
