@@ -7,6 +7,22 @@ USER_HOME:=/home/latex
 BASE_IMAGE:=kaestner/latex
 DOCKER_IMAGE:=mustermann/latex
 
+# Check if any of the args are empty.
+ifndef DIR
+$(error DIR is undefined)
+endif
+ifndef USER_ID
+$(error USER_ID is undefined)
+endif
+ifndef USER_NAME
+$(error USER_NAME is undefined)
+endif
+
+# Log all variables.
+$(info DIR is $(DIR))
+$(info USER_ID is $(USER_ID))
+$(info USER_NAME is $(USER_NAME))
+
 .PHONY: all
 
 thesis:
