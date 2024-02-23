@@ -1,10 +1,6 @@
 # better-tudscr
 A template for the tudscr (TUD-Script) LaTeX package. Contains an initial template for any thesis and a containerized build environment with Docker, so that you don’t have to fiddle around with the installation of LaTeX. Just build the Docker image _once_ in advance and use it to build your thesis.
 
-## ⚠️ Help wanted - Docker build currently not functional
-
-Please see the Issues section of this repository, to help improve this template. Currently, the Docker image `kaestner/latex` seems to be no longer available, meaning that we have to upgrade to another image. In the meantime, this repository can still be used as a basic template for your LaTeX-based TU Dresden thesis.
-
 ## Quickstart
 
 1. Build the Docker image _once_ with `make container`. 
@@ -60,4 +56,4 @@ Instead of keeping a local copy of LaTeX, this repository simplifies the process
 
 In order to avoid user permission problems, you build a custom docker image _once_ in advance, which will create a user which has the same name and user ID as your local user on your machine. As a result there will be no problems, since the files will have the correct permissions set.
 
-This repository uses [kaestner/latex](https://hub.docker.com/repository/docker/kaestner/latex) as the base docker image which is created by [Felix Kästner](https://felix-kaestner.com) over [here](https://github.com/felix-kaestner/latex). This image is only 1.3GB in size, which results in faster build times using the CI.
+This repository uses ghcr.io/felix-kaestner/latex:1.0 as the base docker image which is created by [Felix Kästner](https://felix-kaestner.com) over [here](https://github.com/felix-kaestner/latex). This image is only 1.3GB in size, which results in faster build times using the CI.
