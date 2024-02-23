@@ -4,7 +4,7 @@ DIR:=$(shell sh -c "pwd")
 USER_ID:=$(shell sh -c "id -u")
 USER_NAME:=$(shell sh -c "id -u -n")
 USER_HOME:=/home/latex
-BASE_IMAGE:=kaestner/latex
+BASE_IMAGE:=ghcr.io/felix-kaestner/latex:1.0 
 DOCKER_IMAGE:=mustermann/latex
 
 # Check if any of the args are empty.

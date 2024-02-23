@@ -6,6 +6,6 @@
     "ltex.additionalRules.enablePickyRules": true,
     "ltex.checkFrequency": "edit",
     "latex-workshop.docker.enabled": true,
-    "latex-workshop.docker.image.latex": "kaestner/latex",
+    "latex-workshop.docker.image.latex": "ghcr.io/felix-kaestner/latex:1.0",
     "latex-workshop.latex.autoBuild.run": "never"
 }

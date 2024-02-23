@@ -2,7 +2,7 @@ ARG USER_ID=1000
 ARG USER_NAME=latex
 ARG USER_HOME=/home/latex
 ARG USER_GECOS=LaTeX
-ARG BASE_IMAGE=kaestner/latex
+ARG BASE_IMAGE=ghcr.io/felix-kaestner/latex:1.0
 
 FROM ${BASE_IMAGE} as latex
 
